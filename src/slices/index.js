@@ -5,16 +5,14 @@ import {useDispatch} from "react-redux";
 
 export const postNewPost = createAsyncThunk(
     "posts/postNewPost",
-    async function (postData) {
-        const dispatch = useDispatch()
-        const data = await fetch("http://localhost:3000/posts", {
+    async function (postData, {dispatch}) {
+        await fetch("http://localhost:3000/posts", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(postData)
-        }).then(res=>res.json())
-        console.log(postData)
+        }).then(res => res.json())
         dispatch(addNewPost(postData))
         return postData
     }
